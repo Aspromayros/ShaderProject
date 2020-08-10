@@ -1,0 +1,16 @@
+﻿  glad.c
+  ModelLoading.cpp
+C:\Users\aspro\source\repos\ShaderProject\Mesh.h(84,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(116,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(211,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(212,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(216,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(217,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(219,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(220,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ModelLoading.cpp(229,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 826 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  ShaderProject.vcxproj -> C:\Users\aspro\source\repos\ShaderProject\x64\Release\ShaderProject.exe

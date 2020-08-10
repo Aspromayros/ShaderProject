@@ -1,0 +1,25 @@
+﻿  glad.c
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(638,39): error C2061: syntax error: identifier 'glad_glMultiDrawArraysIndirectCount'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(638,39): error C2059: syntax error: ';'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(638,75): error C2513: ' ': no variable declared before '='
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(642,41): error C2061: syntax error: identifier 'glad_glMultiDrawElementsIndirectCount'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(642,41): error C2059: syntax error: ';'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(642,79): error C2513: ' ': no variable declared before '='
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(679,29): error C2061: syntax error: identifier 'glad_glPolygonOffsetClamp'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(679,29): error C2059: syntax error: ';'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(679,55): error C2513: ' ': no variable declared before '='
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(761,27): error C2061: syntax error: identifier 'glad_glSpecializeShader'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(761,27): error C2059: syntax error: ';'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(761,51): error C2513: ' ': no variable declared before '='
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1731,26): error C2065: 'glad_glSpecializeShader': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1731,54): error C2065: 'PFNGLSPECIALIZESHADERPROC': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1731,55): error C2146: syntax error: missing ';' before identifier 'load'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1732,38): error C2065: 'glad_glMultiDrawArraysIndirectCount': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1732,78): error C2065: 'PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1732,79): error C2146: syntax error: missing ';' before identifier 'load'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1733,40): error C2065: 'glad_glMultiDrawElementsIndirectCount': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1733,82): error C2065: 'PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1733,83): error C2146: syntax error: missing ';' before identifier 'load'
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1734,28): error C2065: 'glad_glPolygonOffsetClamp': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1734,58): error C2065: 'PFNGLPOLYGONOFFSETCLAMPPROC': undeclared identifier
+C:\Users\aspro\source\repos\ShaderProject\3rdParty\glad.c(1734,59): error C2146: syntax error: missing ';' before identifier 'load'
