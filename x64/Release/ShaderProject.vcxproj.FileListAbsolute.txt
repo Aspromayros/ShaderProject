@@ -1,1 +1,2 @@
 C:\Users\aspro\source\repos\ShaderProject\x64\Release\ShaderProject.exe
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\x64\Release\ShaderProject.exe
