@@ -11,6 +11,12 @@
 
 #include <iostream>
 
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include "imgui/imgui_impl_opengl3.h"
+
+using namespace std;
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -20,8 +26,10 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 1208;
 const unsigned int SCR_HEIGHT = 1080;
 
+const char* glsl_version = "#version 130";
+
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -30,9 +38,13 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+bool showCursor = true;
+
 // lighting
 //glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-//glm::vec3 lightColor(0.7f, 0.7f, 0.7f);
+glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+float lightIntensity = 5.0f;
+glm::vec3 lightPos(0.0f, 100.0f, -5.0f);
 
 bool useModel1 = true;
 
@@ -60,7 +72,8 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// tell GLFW to capture our mouse
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
@@ -76,16 +89,16 @@ int main()
 
 	// build and compile shaders
 	// -------------------------
-	Shader ourShader("model_loading.vs", "model_loading.fs");
 
 	// load models
-	// -----------
-
+	// -----------	Shader ourShader("model_loading.vs", "model_loading.fs");
+	Shader ourShader("model_loading.vs", "model_loading.fs");
 	std::string modelPaths[] = {
+
+		"Models/ds1/untitled.obj",
+		"Models/ds2/untitled1.obj",	
+		"Models/ds3/untitled.obj",
 		
-		"Models/Table/untitled.obj",
-		"Models/SkullBook/untitled2.obj",
-		"Models/Lamp/untitled.obj",
 	};
 
 	std::vector<Model> models;
@@ -97,17 +110,69 @@ int main()
 	}
 
 	glm::vec3 cubePositions[] = {
-		glm::vec3(-2.0f, -0.99f, -2.5f),
-		glm::vec3(-2.3f, 0.0f, -1.9f),
-		glm::vec3(-1.5f, -0.1f, -3.0f),
+		glm::vec3(2.0f, 0.0f, 0.0f), //glm::vec3(-2.0f, 1.0f, -2.5f),
+		glm::vec3(6.0f, 0.2f, 0.0f), //glm::vec3(2.0f, 1.0f, 2.5f),
+		glm::vec3(4.0f, 0.0f, 0.0f), //glm::vec3(4.0f, 1.0f, 4.0f),
+		
 	};
 	// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	 // **** IMGUI ****
+	// Setup Dear ImGui context
+	ImGui::DebugCheckVersionAndDataLayout("1.77", sizeof(ImGuiIO), sizeof(ImGuiStyle), sizeof(ImVec2), sizeof(ImVec4), sizeof(ImDrawVert), sizeof(ImDrawIdx));
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsClassic();
+
+	// Setup Platform/Renderer bindings
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	bool checkbox1 = false;
+
+	float sliderfloat = 0.0f;
+
+	// **** IMGUI ****
 	// render loop
 	// -----------
+
 	while (!glfwWindowShouldClose(window))
 	{
+		// Start the Dear ImGui frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		// Show the MainMenu window using IMGUI.
+		{
+			ImGui::Begin("Hello, world!");  // Create a window called "Hello, world!" and append into it.
+
+			
+			ImGui::Text("PITCH: %.1f", camera.Pitch);
+			ImGui::Text("YAW: %.1f", camera.Yaw);
+		
+			ImGui::Checkbox("Demo Window", & checkbox1);      // Edit bools storing our window open/close state
+
+			ImGui::SliderFloat("Intensity",&lightIntensity, 0.0f, 10.0f);    // Edit 1 float using a slider from 0.0f to 1.0f
+			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+			   
+			ImGui::SameLine();
+		
+
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImGui::End();
+		}
+
 		// per-frame time logic
 		// --------------------
 		float currentFrame = glfwGetTime();
@@ -124,6 +189,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// don't forget to enable shader before setting uniforms
+
 		ourShader.use();
 
 		// view/projection transformations
@@ -140,37 +206,48 @@ int main()
 
 		//lightPos = glm::vec3(glm::cos(glfwGetTime()), glm::sin(glfwGetTime()), 2.0f);
 
-		//ourShader.setFloat("shininess", 64.0f);
-		//ourShader.setVec3("viewPos", camera.Position);
-		//ourShader.setVec3("light.position", lightPos);
-		//ourShader.setVec3("light.color", lightColor);
+		ourShader.setFloat("shininess", 35.0f);
+	
+	    ourShader.setVec3("light.position", lightPos);
+		ourShader.setVec3("light.color", lightColor);
+		ourShader.setFloat("light.intensity", lightIntensity);
 
 		for (unsigned int i = 0; i < 3; i++)
 		{
 			// calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			model = glm::translate(model, cubePositions[i]);
+	     	if (i == 0) {
+				float angle = 0.0f;
+				model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
+			}
 			if (i == 1) {
-				float angle = 20.0f;
-				model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 0.5f, 0.0f));
+				float angle = 0.0f;
+				model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0));
 			}
 			if (i == 2) {
 				float angle = 0.0f;
-				model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 1.0f, 1.0));
+				model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0));
 			}
 			float angle = 20.0f * i;
 			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 1.0f, 1.0f)); //1.0f, 0.3f, 0.5f
 			model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1));
 			ourShader.setMat4("model", model);
 			models[i].Draw(ourShader);		    
+		    
+
 		}
+		// Rendering IMGUI
+		ImGui::Render();
+		 
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+			
 	}
-
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
 	glfwTerminate();
@@ -181,6 +258,18 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		if (showCursor)
+		{
+			showCursor = false;
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	    }
+		else {
+			showCursor = true;
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+	}
+	
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		useModel1 = !useModel1;
 

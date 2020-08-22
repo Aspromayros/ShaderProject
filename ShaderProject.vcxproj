@@ -159,10 +159,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rdParty\include\imgui\imgui.cpp" />
+    <ClCompile Include="3rdParty\include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="3rdParty\include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="3rdParty\include\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="3rdParty\include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="3rdParty\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="3rdParty\src\glad.c" />
     <ClCompile Include="ModelLoading.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rdParty\include\imgui\imconfig.h" />
+    <ClInclude Include="3rdParty\include\imgui\imgui.h" />
+    <ClInclude Include="3rdParty\include\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="3rdParty\include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="3rdParty\include\imgui\imgui_internal.h" />
+    <ClInclude Include="3rdParty\include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="3rdParty\include\imgui\imstb_textedit.h" />
+    <ClInclude Include="3rdParty\include\imgui\imstb_truetype.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

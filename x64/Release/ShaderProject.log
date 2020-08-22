@@ -1,16 +1,16 @@
 ﻿  ModelLoading.cpp
 C:\Users\aspro\source\repos\ShaderProject\ShaderProject\Mesh.h(84,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(113,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(215,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(216,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(220,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(221,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(223,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(224,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(233,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(178,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(304,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(305,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(309,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(310,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(312,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(313,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aspro\source\repos\ShaderProject\ShaderProject\ModelLoading.cpp(322,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Generating code
-  3 of 824 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  1 of 1978 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    18 functions had inline decision re-evaluated but remain unchanged
+    27 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ShaderProject.vcxproj -> C:\Users\aspro\source\repos\ShaderProject\ShaderProject\x64\Release\ShaderProject.exe
