@@ -28,8 +28,10 @@ const unsigned int SCR_HEIGHT = 1080;
 
 const char* glsl_version = "#version 130";
 
+bool showing_cursor = false;
+
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
+Camera camera(glm::vec3(4.0f, 1.5f, 6.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -41,10 +43,18 @@ float lastFrame = 0.0f;
 bool showCursor = true;
 
 // lighting
-//glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 float lightIntensity = 5.0f;
 glm::vec3 lightPos(0.0f, 100.0f, -5.0f);
+
+float shininess = 1.0f;
+float matteV = 0.0f;
+float shinnyV = 0.0f;
+float glossyV = 0.0f;
+float alphaModif = 0.5f;
+bool matte = false;
+bool glossy = false;
+bool shinny = false;
 
 bool useModel1 = true;
 
@@ -110,9 +120,9 @@ int main()
 	}
 
 	glm::vec3 cubePositions[] = {
-		glm::vec3(2.0f, 0.0f, 0.0f), //glm::vec3(-2.0f, 1.0f, -2.5f),
-		glm::vec3(6.0f, 0.2f, 0.0f), //glm::vec3(2.0f, 1.0f, 2.5f),
-		glm::vec3(4.0f, 0.0f, 0.0f), //glm::vec3(4.0f, 1.0f, 4.0f),
+		glm::vec3(2.0f, 0.0f, 5.0f), //glm::vec3(2.0f, 0.0f, 0.0f),
+		glm::vec3(6.0f, 0.4f, 5.0f), //glm::vec3(6.0f, 0.4f, 0.0f),
+		glm::vec3(4.0f, 0.0f, 0.0f), //glm::vec3(4.0f, 0.0f, 0.0f),
 		
 	};
 	// draw in wireframe
@@ -155,22 +165,51 @@ int main()
 		{
 			ImGui::Begin("Hello, world!");  // Create a window called "Hello, world!" and append into it.
 
-			
-			ImGui::Text("PITCH: %.1f", camera.Pitch);
-			ImGui::Text("YAW: %.1f", camera.Yaw);
-		
-			ImGui::Checkbox("Demo Window", & checkbox1);      // Edit bools storing our window open/close state
-
-			ImGui::SliderFloat("Intensity",&lightIntensity, 0.0f, 10.0f);    // Edit 1 float using a slider from 0.0f to 1.0f
+			ImGui::SliderFloat("Intensity",&lightIntensity, 1.0f, 8.0f);    // Edit 1 float using a slider from 0.0f to 1.0f
 			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
 			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
 			   
 			ImGui::SameLine();
+
+			ourShader.use();
 		
+			ImGui::SameLine();
+			if (ImGui::Button("Matte")) {
+				matte = true;
+				matteV = 0.0f;
+				ourShader.setBool("shinny", false);
+				ourShader.setBool("glossy", false);
+				ourShader.setBool("matte", matte);
+				ourShader.setFloat("matteV", matteV);
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Glossy")) {
+				ourShader.use();
+				glossy = true;
+				ourShader.setBool("matte", false);
+				ourShader.setBool("shinny", false);
+				ourShader.setBool("glossy", glossy);
+				alphaModif = 1.0f;
+				ourShader.setFloat("glossyV", 1.0f);
+				glossyV = 1.0f;
+				ourShader.setFloat("alphaModif", alphaModif);
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Shinny")) {
+				ourShader.use();
+				shinny = true;
+				ourShader.setBool("matte", false);
+				ourShader.setBool("glossy", false);
+				ourShader.setBool("shinny", shinny);
+				ourShader.setFloat("matteV", 1.0f);
+				ourShader.setFloat("shininess", shininess);
+				shinnyV = 3.0f;
+				ourShader.setFloat("shinnyV", shinnyV);
+			}
 
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			ImGui::End();
+			ImGui::End();				
 		}
 
 		// per-frame time logic
@@ -198,6 +237,7 @@ int main()
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
 
+
 		//// render the loaded model
 		//glm::mat4 model = glm::mat4(1.0f);
 		////model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
@@ -206,11 +246,14 @@ int main()
 
 		//lightPos = glm::vec3(glm::cos(glfwGetTime()), glm::sin(glfwGetTime()), 2.0f);
 
-		ourShader.setFloat("shininess", 35.0f);
+		ourShader.setFloat("shininess", 0.9f);
 	
 	    ourShader.setVec3("light.position", lightPos);
 		ourShader.setVec3("light.color", lightColor);
 		ourShader.setFloat("light.intensity", lightIntensity);
+
+		
+
 
 		for (unsigned int i = 0; i < 3; i++)
 		{
@@ -242,6 +285,8 @@ int main()
 		 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+		
+
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -267,6 +312,7 @@ void processInput(GLFWwindow *window)
 		else {
 			showCursor = true;
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			
 		}
 	}
 	
@@ -305,12 +351,15 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 		lastY = ypos;
 		firstMouse = false;
 	}
-
+	
+	
 	float xoffset = xpos - lastX;
 	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
 
 	lastX = xpos;
 	lastY = ypos;
+
+	if (showCursor) return;
 
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
